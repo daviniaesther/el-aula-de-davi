@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prueba de voz</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 24px 16px; background: #fff4dc; color: #3d2c6b; }
+    main { max-width: 640px; margin: 0 auto; }
+    h1 { margin-top: 0; }
+    .opts { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 24px; }
+    button { font: inherit; font-size: 1.2rem; padding: 10px 16px; border: 0; border-radius: 12px; background: #7c5cff; color: #fff; cursor: pointer; }
+    form { display: flex; gap: 10px; flex-wrap: wrap; }
+    input { font: inherit; font-size: 1.2rem; padding: 10px; border-radius: 12px; border: 2px solid #d9c9f5; flex: 1; min-width: 0; }
+    #voice { color: #7a6aa8; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Prueba de voz</h1>
+    <p id="voice">Buscando voz…</p>
+
+    <h2>Opciones para la G</h2>
+    <div class="opts" id="opts"></div>
+
+    <h2>Escribe lo que quieras</h2>
+    <form id="form">
+      <input id="text" value="¡Muy bien! ge, de Gato" autocomplete="off">
+      <button type="submit">Decir</button>
+    </form>
+  </main>
+
+  <script>
+    var OPTIONS = ['G', 'ge', 'je', 'jé', 'jeh', 'je.', 'la ge', 'la G', 'hé', 'jje'];
+    var voice = null;
+
+    function pickVoice() {
+      var voices = speechSynthesis.getVoices();
+      voice = voices.find(function (v) { return /^es[-_]ES/i.test(v.lang); }) ||
+              voices.find(function (v) { return /^es/i.test(v.lang); }) || null;
+      document.getElementById('voice').textContent = voice
+        ? 'Voz: ' + voice.name + ' (' + voice.lang + ')'
+        : 'No hay voz en español en este navegador.';
+    }
+    pickVoice();
+    speechSynthesis.addEventListener('voiceschanged', pickVoice);
+
+    function say(text) {
+      speechSynthesis.cancel();
+      setTimeout(function () {
+        var u = new SpeechSynthesisUtterance(text);
+        u.lang = 'es-ES';
+        if (voice) u.voice = voice;
+        u.rate = 0.85;
+        u.pitch = 1.15;
+        window._u = u;
+        speechSynthesis.speak(u);
+      }, 80);
+    }
+
+    OPTIONS.forEach(function (o) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = o;
+      b.addEventListener('click', function () { say(o); });
+      document.getElementById('opts').appendChild(b);
+    });
+
+    document.getElementById('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      say(document.getElementById('text').value);
+    });
+  </script>
+</body>
+</html>

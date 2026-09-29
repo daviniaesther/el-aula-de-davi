@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#fff4dc">
+  <title>El aula de Davi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <h1 class="brand"><span class="brand-icon" aria-hidden="true">✏️</span> <span class="brand-text">El aula de Davi</span></h1>
+      <div class="tabs" role="group" aria-label="Sección">
+        <button class="tab" type="button" data-mode="letras" aria-label="Letras">ABC</button>
+        <button class="tab" type="button" data-mode="numeros" aria-label="Números">123</button>
+      </div>
+      <div class="top-actions">
+        <div class="stars" title="Conseguidas"><span aria-hidden="true">⭐</span> <span id="starCount">0</span></div>
+        <button id="soundBtn" class="icon-btn" type="button" aria-label="Quitar el sonido">🔔</button>
+      </div>
+    </header>
+
+    <main class="stage">
+      <button id="prevBtn" class="nav-btn" type="button" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg>
+      </button>
+      <div class="board-wrap">
+        <canvas id="board" aria-label="Pizarra: traza con el dedo"></canvas>
+        <div class="big-letter" id="bigLetter" aria-hidden="true">A</div>
+      </div>
+      <button id="nextBtn" class="nav-btn" type="button" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8"/></svg>
+      </button>
+    </main>
+
+    <section class="controls">
+      <button class="word-card" id="wordCard" type="button" aria-label="Escuchar la palabra">
+        <span class="word-emoji" id="wordEmoji" aria-hidden="true">🐝</span>
+        <span class="word" id="wordText">Abeja</span>
+      </button>
+      <div class="actions">
+        <button id="listenBtn" class="round-btn" type="button" style="--c:#ffb627; --d:#e0931a">
+          <span class="round-icon" aria-hidden="true">🗣️</span><span class="round-label">Oír</span>
+        </button>
+        <button id="demoBtn" class="round-btn" type="button" style="--c:#3ec1d3; --d:#2398a8">
+          <span class="round-icon" aria-hidden="true">👆</span><span class="round-label">Mira</span>
+        </button>
+        <button id="resetBtn" class="round-btn" type="button" style="--c:#ff6b8b; --d:#d84a6b">
+          <span class="round-icon" aria-hidden="true">🔄</span><span class="round-label">Otra vez</span>
+        </button>
+      </div>
+    </section>
+
+    <nav class="alphabet" id="alphabet" aria-label="Elige qué trazar"></nav>
+  </div>
+
+  <div class="celebrate" id="celebrate" hidden>
+    <div class="celebrate-card" role="dialog" aria-live="polite" aria-label="¡Muy bien!">
+      <div class="celebrate-stars" aria-hidden="true"><span>⭐</span><span>⭐</span><span>⭐</span></div>
+      <p class="celebrate-title">¡Muy bien!</p>
+      <div class="celebrate-emoji" id="celEmoji" aria-hidden="true"></div>
+      <div class="celebrate-word" id="celWord"></div>
+      <div class="celebrate-actions">
+        <button id="againBtn" class="big-btn again" type="button" aria-label="Repetir">🔄</button>
+        <button id="goNextBtn" class="big-btn next" type="button" aria-label="Siguiente">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <script src="letters.js"></script>
+  <script src="numbers.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
